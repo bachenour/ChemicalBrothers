@@ -33,6 +33,9 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: CartProduct::class)]
     private Collection $cartProducts;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Taxes $taxes = null;
+
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
@@ -148,6 +151,18 @@ class Product
                 $cartProduct->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTaxes(): ?Taxes
+    {
+        return $this->taxes;
+    }
+
+    public function setTaxes(?Taxes $taxes): static
+    {
+        $this->taxes = $taxes;
 
         return $this;
     }
