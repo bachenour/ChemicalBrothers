@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\FDS;
 use App\Form\FDSType;
 use App\Repository\FDSRepository;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use DateTimeImmutable;
+use Dompdf\Dompdf;
 
 #[Route('/fds')]
 class FDSController extends AbstractController
@@ -81,5 +83,36 @@ class FDSController extends AbstractController
         }
 
         return $this->redirectToRoute('app_fds_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/pdf/generator/{id}', name: 'app_fds_pdf_generator')]
+    public function pdf(Request $request, FDSRepository $fDSRepository, ProductRepository $productRepo): Response
+    {
+        $fds = $fDSRepository->findOneBy(['id' => $request->get('id')]);
+        $product = $productRepo->findOneBy(['fds' => $fds]);
+        // return $this->render('pdf_generator/index.html.twig', [
+        //     'controller_name' => 'PdfGeneratorController',
+        // ]);
+        $data = [
+            'productName' => $product->getName(),
+            'id' => $fds->getId(),
+            'createdAt' => $fds->getCreatedAt(),
+            'updatedAt' => $fds->getUpdatedAt(),
+            'version' => $fds->getVersion(),
+            'chemicalName' => $fds->getChemicalName(),
+            'practice' => $fds->getPractice(),
+            'dangerWarnings' => $fds->getDangerWarnings(),
+            'cautionaryAdvice' => $fds->getCautionaryAdvice()
+        ];
+        $html =  $this->renderView('pdf_generator/index.html.twig', $data);
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+         
+        return new Response (
+            $dompdf->stream('resume', ["Attachment" => false]),
+            Response::HTTP_OK,
+            ['Content-Type' => 'application/pdf']
+        );
     }
 }

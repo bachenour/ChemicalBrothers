@@ -16,7 +16,6 @@ class PdfGeneratorController extends AbstractController
         //     'controller_name' => 'PdfGeneratorController',
         // ]);
         $data = [
-            'imageSrc'  => $this->imageToBase64($this->getParameter('kernel.project_dir') . '/public/img/profile.png'),
             'name'         => 'John Doe',
             'address'      => 'USA',
             'mobileNumber' => '000000000',

@@ -2,33 +2,97 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Resume</title>
+    <title>{{ productName }}</title>
+    <style>
+        /* Juste un peu de style pour rendre le contenu plus lisible */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .info {
+            margin: 0 auto;
+            display: block;
+            width: 500px;
+        }
+        .info p {
+            margin: 5px 0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #000; /* Ajout d'une bordure inférieure */
+            padding-bottom: 10px; /* Ajout d'un peu d'espace en bas */
+        }
+        .header h2 {
+            font-size: 16px; /* Taille de la police réduite pour le header */
+            font-weight: normal; /* Texte normal, pas en gras */
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .title h1 {
+            font-size: 32px; /* Taille de la police plus grande pour le titre principal */
+            font-style: italic; /* Style italic pour le titre principal */
+            color: #555; /* Couleur du titre principal */
+            border-bottom: 1px solid #ccc; /* Bordure inférieure pour le titre principal */
+            padding-bottom: 5px; /* Ajout d'un peu d'espace en bas du titre principal */
+        }
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+        }
+        /* Style pour les blocs d'information */
+        .informationblock {
+            margin-bottom: 20px; /* Ajout d'un peu d'espace entre les blocs d'informations */
+        }
+        .informationblock h2 {
+            margin-bottom: 5px; /* Espacement entre les titres et les détails */
+        }
+        .infodetails {
+            margin-left: 20px; /* Ajout d'un léger décalage pour les détails */
+        }
+    </style>
 </head>
 <body>
-    <div style="margin: 0 auto;display: block;width: 500px;">
-        <table width="100%" border="1">
-            <tr>
-                <td colspan="2">
-                    <img src="{{imageSrc}}" style="width:200px;"> 
-                </td>
-            </tr>
-            <tr>
-                <td>Name:</td>
-                <td>{{name}}</td>
-            </tr>
-            <tr>
-                <td>Address:</td>
-                <td>{{address}}</td>
-            </tr>
-            <tr>
-                <td>Mobile Number:</td>
-                <td>{{mobileNumber}}</td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td>{{email}}</td>
-            </tr>
-        </table>
+    <div class="header">
+        <h2>Created: {{ createdAt }}</h2>
+        <h2>Updated: {{ updatedAt }}</h2>
+        <h2>Number: {{ id }}</h2>
+    </div>
+
+    <div class="title">
+        <h1>{{ productName }}</h1>
+    </div>
+    <div class="info">
+        <div class="informationblock">
+            <h2>Chemical Name: {{ chemicalName }}</h2>
+        </div>
+        <div class="informationblock">
+            <h2>Usage: {{ practice }}</h2>
+            <div class="infodetails">
+                <p>{{ practice }}</p>
+            </div>
+        </div>
+        <div class="informationblock">
+            <h2>Danger warnings: </h2>
+            <div class="infodetails">
+                <p>{{ dangerWarnings }}</p>
+            </div>
+        </div>
+        <div class="informationblock">
+            <h2>Cautionary Advice: {{ cautionaryAdvice }}</h2>
+            <div class="infodetails">
+                <p>{{ cautionaryAdvice }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Version: {{ version }}</p>
     </div>
 </body>
 </html>

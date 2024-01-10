@@ -55,9 +55,9 @@ class FDS
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?string
     {
-        return $this->createdAt;
+        return $this->createdAt->format('Y-m-d');
     }
 
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
@@ -67,9 +67,9 @@ class FDS
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?string
     {
-        return $this->updatedAt;
+        return $this->updatedAt->format('Y-m-d');
     }
 
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
