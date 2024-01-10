@@ -16,11 +16,11 @@ class FDS
 
     #[ORM\Column(length: 255)]
     private ?string $filePath = null;
-
+ 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column (nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column]
