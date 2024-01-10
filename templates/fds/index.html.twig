@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FDS index{% endblock %}
+
+{% block body %}
+    <h1>FDS index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FilePath</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Version</th>
+                <th>ChemicalName</th>
+                <th>Practice</th>
+                <th>DangerWarnings</th>
+                <th>CautionaryAdvice</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fds in fdss %}
+            <tr>
+                <td>{{ fds.id }}</td>
+                <td>{{ fds.filePath }}</td>
+                <td>{{ fds.createdAt ? fds.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ fds.updatedAt ? fds.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ fds.version }}</td>
+                <td>{{ fds.chemicalName }}</td>
+                <td>{{ fds.practice }}</td>
+                <td>{{ fds.dangerWarnings }}</td>
+                <td>{{ fds.cautionaryAdvice }}</td>
+                <td>
+                    <a href="{{ path('app_fds_show', {'id': fds.id}) }}">show</a>
+                    <a href="{{ path('app_fds_edit', {'id': fds.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_fds_new') }}">Create new</a>
+{% endblock %}
