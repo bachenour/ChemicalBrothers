@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New FDS{% endblock %}
+
+{% block body %}
+    <h1>Create new FDS</h1>
+
+    {{ include('fds/_form.html.twig') }}
+
+    <a href="{{ path('app_fds_index') }}">back to list</a>
+{% endblock %}
