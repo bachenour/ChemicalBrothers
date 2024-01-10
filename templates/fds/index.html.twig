@@ -25,15 +25,15 @@
             <tr>
                 <td>{{ fds.id }}</td>
                 <td>{{ fds.filePath }}</td>
-                <td>{{ fds.createdAt ? fds.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ fds.updatedAt ? fds.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ fds.createdAt }}</td>
+                <td>{{ fds.updatedAt }}</td>
                 <td>{{ fds.version }}</td>
                 <td>{{ fds.chemicalName }}</td>
                 <td>{{ fds.practice }}</td>
                 <td>{{ fds.dangerWarnings }}</td>
                 <td>{{ fds.cautionaryAdvice }}</td>
                 <td>
-                    <a href="{{ path('app_fds_show', {'id': fds.id}) }}">show</a>
+                    <a href="{{ path('app_fds_pdf_generator', {'id': fds.id}) }}" target="_blank">show</a>
                     <a href="{{ path('app_fds_edit', {'id': fds.id}) }}">edit</a>
                 </td>
             </tr>

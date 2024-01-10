@@ -38,6 +38,9 @@ class FDS
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $cautionaryAdvice = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -57,7 +60,7 @@ class FDS
 
     public function getCreatedAt(): ?string
     {
-        return $this->createdAt->format('Y-m-d');
+        return $this->createdAt ? $this->createdAt->format('Y-m-d') : null;
     }
 
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
@@ -69,7 +72,7 @@ class FDS
 
     public function getUpdatedAt(): ?string
     {
-        return $this->updatedAt->format('Y-m-d');
+        return $this->updatedAt ? $this->updatedAt->format('Y-m-d'): null;
     }
 
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
@@ -135,6 +138,18 @@ class FDS
     public function setCautionaryAdvice(?string $cautionaryAdvice): static
     {
         $this->cautionaryAdvice = $cautionaryAdvice;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

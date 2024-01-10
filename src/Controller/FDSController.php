@@ -94,7 +94,7 @@ class FDSController extends AbstractController
         //     'controller_name' => 'PdfGeneratorController',
         // ]);
         $data = [
-            'productName' => $product->getName(),
+            'productName' => $product ? $product->getName() : $fds->getChemicalName(),
             'id' => $fds->getId(),
             'createdAt' => $fds->getCreatedAt(),
             'updatedAt' => $fds->getUpdatedAt(),
