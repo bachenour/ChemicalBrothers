@@ -3,3 +3,17 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+
+home:
+    path: /
+    controller : App\Controller\HomeController::index
+
+cart:
+    path: /cart
+    controller : App\Controller\CartController::index
+    
+add_to_cart:
+    path: '/add-to-cart/{productId}'
+    controller: 'App\Controller\CartController::addToCart'
+    methods: ['POST']
