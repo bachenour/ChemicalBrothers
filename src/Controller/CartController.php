@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use App\Repository\ProductRepository;
 use App\Repository\CartRepository;
 use App\Repository\UserRepository;
@@ -32,10 +33,9 @@ class CartController extends AbstractController
         $this->userRepository = $userRepository;
     }
 
-    /**
-     * #[Route("/add-to-cart/{productId}", name="add_to_cart", methods={"POST"})
-     */
-    public function addToCart($productId): Response
+    
+    #[Route("/add-to-cart/{productId}", name:"add_to_cart", methods:["POST"])]
+    public function addToCart($productId, UserInterface $user): Response
     {
         $product = $this->productRepository->find($productId);
 
@@ -43,10 +43,16 @@ class CartController extends AbstractController
             return $this->redirectToRoute('home');// RENVOYER VERS PAGE PRODUIT INEXISTANT
         }
 
-        $cart = $this->cartRepository->findActiveCart();
+        
 
         // A MODIFIER
-        $user = $this->userRepository->find(1);
+        //$user = $this->userRepository->find($user->getId());
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $cart = $this->cartRepository->findOneBy(['user_id' =>  $user->getId()]); // LE PB
 
         if (!$cart) {
             $cart = new Cart();

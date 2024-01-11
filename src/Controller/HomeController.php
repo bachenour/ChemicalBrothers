@@ -9,7 +9,7 @@ use App\Repository\ProductRepository;
 
 class HomeController extends AbstractController
 {
-    //#[Route('/home', name: 'app_home')]
+    #[Route('/home', name: 'app_home')]
     public function index(ProductRepository $productRep): Response
     {
         $products = $productRep->findAllProducts();
