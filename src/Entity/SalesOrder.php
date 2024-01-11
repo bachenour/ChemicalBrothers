@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderRepository;
+use App\Repository\SalesOrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -28,6 +28,9 @@ class SalesOrder
 
     #[ORM\OneToMany(mappedBy: 'salesOrder', targetEntity: OrderProduct::class)]
     private Collection $orderProducts;
+
+    #[ORM\ManyToOne(inversedBy: 'salesOrders')]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -120,6 +123,18 @@ class SalesOrder
                 $orderProduct->setSalesOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
