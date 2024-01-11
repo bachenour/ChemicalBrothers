@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 use App\Repository\ProductRepository;
 use App\Repository\CartRepository;
 use App\Repository\UserRepository;
@@ -35,7 +34,7 @@ class CartController extends AbstractController
 
     
     #[Route("/add-to-cart/{productId}", name:"add_to_cart", methods:["POST"])]
-    public function addToCart($productId, UserInterface $user): Response
+    public function addToCart($productId): Response
     {
         $product = $this->productRepository->find($productId);
 
@@ -46,14 +45,16 @@ class CartController extends AbstractController
         
 
         // A MODIFIER
-        //$user = $this->userRepository->find($user->getId());
         $user = $this->getUser();
+        //$user = $this->userRepository->find($user->getId());
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
 
-        $cart = $this->cartRepository->findOneBy(['user_id' =>  $user->getId()]); // LE PB
+        //var_dump($user);
+        $cart = $this->cartRepository->findOneBy(['user' => $user]); // LE PB
 
+        //var_dump($cart);
         if (!$cart) {
             $cart = new Cart();
             $cart->setUser($user);  //A MODIFIER
@@ -83,7 +84,8 @@ class CartController extends AbstractController
 
     public function index(): Response
     {
-        $cart = $this->cartRepository->findActiveCart();
+        $user = $this->getUser();
+        $cart = $this->cartRepository->findOneBy(['user' => $user]);
         if ($cart!=null) {
             $cartProducts = $this->cartProductRepository->findBy(['cart' => $cart]);
         }
