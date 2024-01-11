@@ -5,26 +5,56 @@
 {% block body %}
     <h1>SalesOrder</h1>
 
+    <h2>Order Informations</h2>
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <td><strong>Id</strong></td>
                 <td>{{ sales_order.id }}</td>
             </tr>
             <tr>
-                <th>DateOrder</th>
+                <td><strong>DateOrder</strong></td>
                 <td>{{ sales_order.dateOrder ? sales_order.dateOrder|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>DateDelivery</th>
+                <td><strong>DateDelivery</strong></td>
                 <td>{{ sales_order.dateDelivery ? sales_order.dateDelivery|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
+    <h2>Products</h2>
+    {% for product in products %}
+    <table class="table">
+        <tbody>
+                <tr>
+                    <td><strong>Number </strong></td>
+                    <td><strong>Name </strong></td>
+                    <td><strong>Capacity (ml) </strong></td>
+                    <td><strong>Price € </strong></td>
+                    <td><strong>FDS fle (PDF) </strong></td>
+                </tr>
+                <tr>
+                    <td><a href="{{ path('app_product_show', {'id': product.id}) }}">{{product.id}}</a></td>
+                    <td>{{ product.name }} </td>
+                    <td>{{ product.capacity }} </td>
+                    <td>{{ product.price }} €</td>
+                    <td>
+                        <a href="{{ path('app_fds_pdf_generator', {'id': product.fds.id}) }}" target="_blank">show FDS </a>
+                    </td>
+                </tr>
+                <tr>
+                
+            </tr>
+        </tbody>
+    </table>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            
+        
 
-    <a href="{{ path('app_sales_order_index') }}">back to list</a>
+    <a href="{{ path('app_sales_order_user') }}">back to list</a>
 
-    <a href="{{ path('app_sales_order_edit', {'id': sales_order.id}) }}">edit</a>
-
-    {{ include('sales_order/_delete_form.html.twig') }}
 {% endblock %}
