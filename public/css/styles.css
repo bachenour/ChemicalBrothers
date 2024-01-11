@@ -41,26 +41,3 @@
 }
 
 /***********************************************************NAVBAR*****************************************************************/
-.navbar {
-    background-color: Black;
-    padding: 10px 20px;
-    color: white;
-}
-
-.navbar-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: right; /* Aligner les éléments à droite */
-}
-
-.navbar-list li {
-    display: inline-block;
-    margin-left: 20px; /* Ajouter une marge entre les éléments */
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
