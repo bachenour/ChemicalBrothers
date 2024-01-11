@@ -4,7 +4,6 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-
 home:
     path: /
     controller : App\Controller\HomeController::index
@@ -17,3 +16,9 @@ add_to_cart:
     path: '/add-to-cart/{productId}'
     controller: 'App\Controller\CartController::addToCart'
     methods: ['POST']
+app_homepage:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+    defaults:
+        path: /login
+        permanent: true
