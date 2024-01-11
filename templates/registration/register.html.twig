@@ -14,8 +14,14 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'Mot de passe'
         }) }}
-        {{ form_row(registrationForm.rgpdConsent) }}
 
+        {# {{ form_row(addressForm.number) }}
+        {{ form_row(addressForm.street) }}
+        {{ form_row(addressForm.postalCode) }}
+        {{ form_row(addressForm.city) }}
+        {{ form_row(addressForm.country) }} #}
+
+        {{ form_row(registrationForm.rgpdConsent) }}
         <button type="submit" class="btn">M'inscrire</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

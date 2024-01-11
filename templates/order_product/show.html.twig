@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OrderProduct{% endblock %}
+
+{% block body %}
+    <h1>OrderProduct</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ order_product.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ order_product.total }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_order_product_index') }}">back to list</a>
+
+    <a href="{{ path('app_order_product_edit', {'salesOrder': order_product.salesOrder}) }}">edit</a>
+
+    {{ include('order_product/_delete_form.html.twig') }}
+{% endblock %}
