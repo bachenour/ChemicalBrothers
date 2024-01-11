@@ -18,7 +18,7 @@ class ProductType extends AbstractType
             ->add('price')
             ->add('fds', EntityType::class, [
                 'class' => 'App\Entity\FDS',
-                'choice_label' => 'filePath',
+                'choice_label' => 'name',
             ])
             ->add('taxes', EntityType::class, [
                 'class' => 'App\Entity\Taxes',
