@@ -21,6 +21,15 @@ class CartRepository extends ServiceEntityRepository
         parent::__construct($registry, Cart::class);
     }
 
+    public function findActiveCart(): ?Cart
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.saved = :saved')
+            ->setParameter('saved', true)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Cart[] Returns an array of Cart objects
 //     */
