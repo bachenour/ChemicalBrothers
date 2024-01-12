@@ -1,38 +1,27 @@
-{% extends 'scss.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h1 class="text-center mb-4">Inscription</h1>
+    <h1>Inscription</h1>
 
-                {{ form_errors(registrationForm) }}
+    {{ form_errors(registrationForm) }}
 
-                {{ form_start(registrationForm) }}
-                    <div class="form-group">
-                        {{ form_row(registrationForm.firstName, { 'attr': {'class': 'form-control', 'placeholder': 'Prénom'} }) }}
-                    </div>
-                    <div class="form-group">
-                        {{ form_row(registrationForm.lastName, { 'attr': {'class': 'form-control', 'placeholder': 'Nom'} }) }}
-                    </div>
-                    <div class="form-group">
-                        {{ form_row(registrationForm.email, { 'attr': {'class': 'form-control', 'placeholder': 'E-mail'} }) }}
-                    </div>
-                    <div class="form-group">
-                        {{ form_row(registrationForm.plainPassword, { 'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'} }) }}
-                    </div>
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.firstName) }}
+        {{ form_row(registrationForm.lastName) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Mot de passe'
+        }) }}
 
-                    
-                    {{ form_row(registrationForm.rgpdConsent) }}
-                    <button type="submit" class="btn btn-primary btn-block mt-3">M'inscrire</button>
-                {{ form_end(registrationForm) }}
-                            <div class="mt-3 text-center">
-                <p class="mb-0">Déjà inscrit ?</p>
-                <a href="{{ path('app_login') }}" style="color: inherit; text-decoration: none;">Connexion</a>
-            </div>
-            </div>
-        </div>
-    </div>
+        {# {{ form_row(addressForm.number) }}
+        {{ form_row(addressForm.street) }}
+        {{ form_row(addressForm.postalCode) }}
+        {{ form_row(addressForm.city) }}
+        {{ form_row(addressForm.country) }} #}
+
+        {{ form_row(registrationForm.rgpdConsent) }}
+        <button type="submit" class="btn">M'inscrire</button>
+    {{ form_end(registrationForm) }}
 {% endblock %}

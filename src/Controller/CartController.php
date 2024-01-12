@@ -86,8 +86,6 @@ class CartController extends AbstractController
     {
         $user = $this->getUser();
         $cart = $this->cartRepository->findOneBy(['user' => $user]);
-        $cartProducts = [];
-        
         if ($cart!=null) {
             $cartProducts = $this->cartProductRepository->findBy(['cart' => $cart]);
         }

@@ -40,7 +40,6 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Consentement RGDP'
             ])
             ->add('plainPassword', PasswordType::class, [
-                'label' => 'Mot de passe',
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
