@@ -10,16 +10,6 @@
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
-
-        <nav class="navbar">
-            <ul class= "navbar-list">
-                <li><a href="{{ path('home') }}">Home</a></li>
-                <li><a href="{{ path('userorders') }}">Orders</a></li>
-                <li><a href="{{ path('cart') }}">Cart</a></li>
-                <li><a href="">Account</a></li>
-                <li><a href="{{ path('app_logout') }}">Logout</a></li>
-            </ul>
-        </nav>
     </head>
     <body>
         {% block body %}{% endblock %}

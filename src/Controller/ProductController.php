@@ -10,10 +10,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-#[Route('/product')]
+
+#[Route('/admin/product')]
 class ProductController extends AbstractController
 {
+    // private function accessControle(): Response
+    // {
+    //     if (!$this->isGranted('ROLE_ADMIN')) {
+    //         throw new AccessDeniedException("Accès refusé. Vous n'avez pas le rôle requis.");
+    //         return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+    //     }
+    // }
+
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
     {

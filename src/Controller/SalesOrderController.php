@@ -62,6 +62,15 @@ class SalesOrderController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        //create new lines in productOrder
+        $cart = $this->cartRepository->findOneBy(['user' => $user]);
+        if(!$cart){
+            return $this->redirectToRoute('home');
+        }
+        $cartProducts = $this->cartProductRepository->findBy(['cart' => $cart]);
+        if(!$cartProducts){
+            return $this->redirectToRoute('home');
+        }
         //create a new sales order
         $salesOrder = new SalesOrder();
         $salesOrder->setUser($user);
@@ -70,13 +79,6 @@ class SalesOrderController extends AbstractController
         $salesOrder->setDateDelivery(new DateTime());
         $entityManager->persist($salesOrder);
         $entityManager->flush();
-
-        //create new lines in productOrder
-        $cart = $this->cartRepository->findOneBy(['user' => $user, 'saved' => false]);
-        if(!$cart){
-            return $this->redirectToRoute('home');
-        }
-        $cartProducts = $this->cartProductRepository->findBy(['cart' => $cart]);
         foreach($cartProducts as $cartProduct){
             $product = $cartProduct->getProduct();
             $orderProduct = new OrderProduct();
@@ -102,15 +104,22 @@ class SalesOrderController extends AbstractController
         $orderProducts = $orderProductRepository->findBy(['salesOrder' => $salesOrder]);
 
         $products = [];
+        $quantityProducts = [];
+        $totalPrices = [];
 
         foreach ($orderProducts as $orderProduct) {
             $product = $orderProduct->getProduct();
             array_push($products, $product);
+            $quantityProduct = $orderProduct->getQuantity();
+            $quantityProducts[$product->getId()] = $orderProduct->getQuantity();
+            $totalPrices[$product->getId()] = $orderProduct->getTotal();
         }
 
         return $this->render('sales_order/show.html.twig', [
             'sales_order' => $salesOrder,
-            'products' => $products
+            'products' => $products,
+            'quantity_product' => $quantityProducts,
+            'total_prices' => $totalPrices
         ]);
     }
 

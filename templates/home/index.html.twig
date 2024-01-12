@@ -9,7 +9,7 @@
     {% for product in products %}
         <article class="product">
             <h3>{{product.name}} - {{product.capacity}} ml</h3>
-            <p>{{product.price}}€</p>
+            <p>{{product.price}} €</p>
             <form action="{{ path('add_to_cart', {'productId': product.id}) }}" method="post">
                 <button class="command-button">Ajouter au panier</button>
             </form>
