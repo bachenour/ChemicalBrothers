@@ -20,6 +20,12 @@ class FDSController extends AbstractController
     #[Route('/admin/fds', name: 'app_fds_index', methods: ['GET'])]
     public function index(FDSRepository $fDSRepository): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('fds/index.html.twig', [
             'fdss' => $fDSRepository->findAll(),
         ]);
@@ -28,6 +34,12 @@ class FDSController extends AbstractController
     #[Route('/admin/fds/new', name: 'app_fds_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $fds = new FDS();
         $form = $this->createForm(FDSType::class, $fds);
         $form->handleRequest($request);
@@ -50,6 +62,12 @@ class FDSController extends AbstractController
     #[Route('/fds/{id}', name: 'app_fds_show', methods: ['GET'])]
     public function show(FDS $fds): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('fds/show.html.twig', [
             'fds' => $fds,
         ]);
@@ -58,6 +76,12 @@ class FDSController extends AbstractController
     #[Route('/admin/fds/{id}/edit', name: 'app_fds_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, FDS $fds, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $form = $this->createForm(FDSType::class, $fds);
         $form->handleRequest($request);
 
@@ -77,6 +101,12 @@ class FDSController extends AbstractController
     #[Route('/admin/fds/{id}', name: 'app_fds_delete', methods: ['POST'])]
     public function delete(Request $request, FDS $fD, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$fD->getId(), $request->request->get('_token'))) {
             $entityManager->remove($fD);
             $entityManager->flush();
@@ -88,6 +118,12 @@ class FDSController extends AbstractController
     #[Route('/pdf/generator/{id}', name: 'app_fds_pdf_generator')]
     public function pdf(Request $request, FDSRepository $fDSRepository, ProductRepository $productRepo): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        
         $fds = $fDSRepository->findOneBy(['id' => $request->get('id')]);
         $product = $productRepo->findOneBy(['fds' => $fds]);
         // return $this->render('pdf_generator/index.html.twig', [

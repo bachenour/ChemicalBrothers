@@ -35,6 +35,12 @@ class SalesOrderController extends AbstractController
     #[Route('/', name: 'app_sales_order_index', methods: ['GET'])]
     public function index(SalesOrderRepository $salesOrderRepository): Response
     {
+        $user = $this->getUser();
+        
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('sales_order/index.html.twig', [
             'sales_orders' => $salesOrderRepository->findAll(),
         ]);
@@ -48,6 +54,7 @@ class SalesOrderController extends AbstractController
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
+        
         return $this->render('sales_order/index.html.twig', [
             'sales_orders' => $salesOrderRepository->findBy(['user' => $user]),
         ]);
@@ -100,6 +107,12 @@ class SalesOrderController extends AbstractController
     #[Route('/{id}', name: 'app_sales_order_show', methods: ['GET'])]
     public function show(SalesOrder $salesOrder, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $orderProductRepository = $entityManager->getRepository(OrderProduct::class);
         $orderProducts = $orderProductRepository->findBy(['salesOrder' => $salesOrder]);
 
@@ -126,6 +139,12 @@ class SalesOrderController extends AbstractController
     #[Route('/{id}/edit', name: 'app_sales_order_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, SalesOrder $salesOrder, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $form = $this->createForm(SalesOrderType::class, $salesOrder);
         $form->handleRequest($request);
 
@@ -144,6 +163,12 @@ class SalesOrderController extends AbstractController
     #[Route('/{id}', name: 'app_sales_order_delete', methods: ['POST'])]
     public function delete(Request $request, SalesOrder $salesOrder, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$salesOrder->getId(), $request->request->get('_token'))) {
             $entityManager->remove($salesOrder);
             $entityManager->flush();

@@ -17,6 +17,12 @@ class OrderProductController extends AbstractController
     #[Route('/', name: 'app_order_product_index', methods: ['GET'])]
     public function index(OrderProductRepository $orderProductRepository): Response
     {
+        $user = $this->getUser();
+        
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('order_product/index.html.twig', [
             'order_products' => $orderProductRepository->findAll(),
         ]);
@@ -25,6 +31,12 @@ class OrderProductController extends AbstractController
     #[Route('/new', name: 'app_order_product_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $orderProduct = new OrderProduct();
         $form = $this->createForm(OrderProduct1Type::class, $orderProduct);
         $form->handleRequest($request);
@@ -45,6 +57,12 @@ class OrderProductController extends AbstractController
     #[Route('/{salesOrder}', name: 'app_order_product_show', methods: ['GET'])]
     public function show(OrderProduct $orderProduct): Response
     {
+        $user = $this->getUser();
+        
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        
         return $this->render('order_product/show.html.twig', [
             'order_product' => $orderProduct,
         ]);
@@ -53,6 +71,12 @@ class OrderProductController extends AbstractController
     #[Route('/{salesOrder}/edit', name: 'app_order_product_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, OrderProduct $orderProduct, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $form = $this->createForm(OrderProduct1Type::class, $orderProduct);
         $form->handleRequest($request);
 
@@ -71,6 +95,12 @@ class OrderProductController extends AbstractController
     #[Route('/{salesOrder}', name: 'app_order_product_delete', methods: ['POST'])]
     public function delete(Request $request, OrderProduct $orderProduct, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        
         if ($this->isCsrfTokenValid('delete'.$orderProduct->getSalesOrder(), $request->request->get('_token'))) {
             $entityManager->remove($orderProduct);
             $entityManager->flush();
