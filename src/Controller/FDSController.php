@@ -17,7 +17,7 @@ use Dompdf\Dompdf;
 
 class FDSController extends AbstractController
 {
-    #[Route('/', name: 'app_fds_index', methods: ['GET'])]
+    #[Route('/admin/fds', name: 'app_fds_index', methods: ['GET'])]
     public function index(FDSRepository $fDSRepository): Response
     {
         return $this->render('fds/index.html.twig', [
