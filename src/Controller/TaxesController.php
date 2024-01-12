@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/taxes')]
+#[Route('/admin/taxes')]
 class TaxesController extends AbstractController
 {
     #[Route('/', name: 'app_taxes_index', methods: ['GET'])]

@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use DateTimeImmutable;
 use Dompdf\Dompdf;
 
-#[Route('/fds')]
+
 class FDSController extends AbstractController
 {
     #[Route('/', name: 'app_fds_index', methods: ['GET'])]
@@ -25,7 +25,7 @@ class FDSController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_fds_new', methods: ['GET', 'POST'])]
+    #[Route('/admin/fds/new', name: 'app_fds_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $fds = new FDS();
@@ -47,7 +47,7 @@ class FDSController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_fds_show', methods: ['GET'])]
+    #[Route('/fds/{id}', name: 'app_fds_show', methods: ['GET'])]
     public function show(FDS $fds): Response
     {
         return $this->render('fds/show.html.twig', [
@@ -55,7 +55,7 @@ class FDSController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_fds_edit', methods: ['GET', 'POST'])]
+    #[Route('/admin/fds/{id}/edit', name: 'app_fds_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, FDS $fds, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(FDSType::class, $fds);
@@ -74,7 +74,7 @@ class FDSController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_fds_delete', methods: ['POST'])]
+    #[Route('/admin/fds/{id}', name: 'app_fds_delete', methods: ['POST'])]
     public function delete(Request $request, FDS $fD, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$fD->getId(), $request->request->get('_token'))) {
