@@ -3,6 +3,15 @@
 {% block title %}Hello CartController!{% endblock %}
 
 {% block body %}
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+<nav class="navbar">
+    <ul class= "navbar-list">
+        <li><a href="{{ path('home') }}">Accueil</a></li>
+        <li><a href="{{ path('cart') }}">Mon Panier</a></li>
+        <li><a href="">Mon Compte</a></li>
+    </ul>
+</nav>
+
 <div class="example-wrapper">
     <h1>Mon Panier</h1>
 
@@ -19,6 +28,5 @@
     {% endfor %}
 
     <p>Total de la commande: {{ totalCommande }} €</p>
-    <a href="{{ path('app_sales_order_new') }}">Payer</a>
 </div>
 {% endblock %}

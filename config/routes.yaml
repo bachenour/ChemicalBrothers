@@ -11,10 +11,6 @@ home:
 cart:
     path: /cart
     controller : App\Controller\CartController::index
-
-userorders:
-    path: /userorders
-    controller : App\Controller\SalesOrderController::userOrders
     
 add_to_cart:
     path: '/add-to-cart/{productId}'

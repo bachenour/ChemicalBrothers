@@ -4,12 +4,21 @@
 
 {% block body %}
 
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+<nav class="navbar">
+    <ul class= "navbar-list">
+        <li><a href="{{ path('home') }}">Accueil</a></li>
+        <li><a href="{{ path('cart') }}">Mon Panier</a></li>
+        <li><a href="">Mon Compte</a></li>
+    </ul>
+</nav>
+
 <div class="example-wrapper">
     <h1> Nos Produits</h1>
     {% for product in products %}
         <article class="product">
             <h3>{{product.name}} - {{product.capacity}} ml</h3>
-            <p>{{product.price}} €</p>
+            <p>{{product.price}}€</p>
             <form action="{{ path('add_to_cart', {'productId': product.id}) }}" method="post">
                 <button class="command-button">Ajouter au panier</button>
             </form>
